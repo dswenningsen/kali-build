@@ -52,7 +52,7 @@
 
 - name: Set KasmVNC password for user
   shell:
-    echo -e "password\npassword\n" | kasmvncpasswd -u {{ ansible_user_id }} -owr
+    echo "password\npassword\n" | kasmvncpasswd -u {{ ansible_user_id }} -owr
   become: true
   become_user: "{{ ansible_user_id }}"
   register: kasmvncpasswd_result

@@ -84,6 +84,7 @@
       - ruby-dev
       - gem
       - man-db
+      - xfce4-session
     state: latest
   become: true
   become_method: sudo
