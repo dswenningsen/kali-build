@@ -124,13 +124,13 @@
   become: true
   become_method: sudo
 
- - name: "Add VS Code apt repository (signed-by)"
-   ansible.builtin.apt_repository:
-     repo: "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
-     state: present
-     filename: "vscode"
-   become: true
-   become_method: sudo
+- name: "Add VS Code apt repository (signed-by)"
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64,arm64,armhf signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
+    state: present
+    filename: "vscode"
+  become: true
+  become_method: sudo
 
 - name: "Update apt cache for VS Code"
   ansible.builtin.apt:
