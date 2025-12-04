@@ -66,6 +66,7 @@
       - ruby-rubygems
       - ruby-dev
       - gem
+      - man-db
     state: latest
   become: true
   become_method: sudo
