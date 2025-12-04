@@ -57,6 +57,8 @@
       - docker-doc
       - docker-clean
       - containerd
+      - golang-go
+      - gccgo-go
     state: latest
   become: true
   become_method: sudo
