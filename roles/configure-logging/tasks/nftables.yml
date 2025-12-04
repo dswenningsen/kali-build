@@ -1,0 +1,30 @@
+---
+- name: Ensure nftables config file exists
+  ansible.builtin.file:
+    path: /etc/nftables.conf
+    state: touch
+    mode: "0644"
+  become: true
+  become_method: sudo
+
+- name: Add logging rule for incoming TCP SYNs
+  ansible.builtin.blockinfile:
+    path: /etc/nftables.conf
+    marker: "# {mark} managed by ansible - syn log"
+    block: |
+      table inet filter {
+        chain input {
+          type filter hook input priority 0;
+          # Log SYNs (no ACK) with a prefix; rate-limit to reduce noise
+          tcp flags & (syn|ack) == syn log prefix "NFT-SYN-LOG: " group 0 limit rate 10/second
+        }
+      }
+  become: true
+  become_method: sudo
+
+- name: Apply nftables config
+  ansible.builtin.command:
+    cmd: nft -f /etc/nftables.conf
+  changed_when: true
+  become: true
+  become_method: sudo

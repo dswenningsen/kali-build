@@ -1,3 +1,2 @@
----
-- include_tasks: "ufw.yml"
+- include_tasks: "nftables.yml"
 - include_tasks: "auditd.yml"
