@@ -9,6 +9,11 @@
     src: "{{ role_path }}/files/.zshrc"
     dest: "{{ ansible_env.HOME }}"
 
+- name: "Copy z.sh"
+  copy:
+    src: "{{ role_path }}/files/z.sh"
+    dest: "/usr/bin/z.sh"
+
 - name: "Copy Zsh aliases"
   copy:
     src: "{{ role_path }}/files/.zsh_aliases"
