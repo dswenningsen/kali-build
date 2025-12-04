@@ -52,9 +52,9 @@
 
 - name: Set KasmVNC password for user
   ansible.builtin.command: >-
-    echo "PAtriot\nPAtriot\n" | kasmvncpasswd -u {{ kasmvnc_user | default(ansible_user_id) }} -orw
+    echo "PAtriot\nPAtriot\n" | kasmvncpasswd -u {{ ansible_user_id }} -orw
   become: true
-  become_user: "{{ kasmvnc_user | default(ansible_user_id) }}"
+  become_user: "{{ ansible_user_id }}"
   register: kasmvncpasswd_result
   changed_when: kasmvncpasswd_result.rc == 0
 
