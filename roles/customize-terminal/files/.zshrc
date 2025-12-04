@@ -258,5 +258,5 @@ fi
 eval "$(oh-my-posh init zsh --config ~/.mytheme.omp.json)"
 alias ll='ls -al'
 export PATH=${PATH}:/root/.local/bin
-. /bin/z.sh
+. /usr/bin/z.sh
 . ~/.zsh_aliases
