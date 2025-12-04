@@ -1,8 +1,4 @@
 ---
-- name: "Install NetExec"
-  community.general.pipx:
-    name: "netexec"
-
 - name: "Install pipx tools"
   community.general.pipx:
     name: "{{ item.name }}"
