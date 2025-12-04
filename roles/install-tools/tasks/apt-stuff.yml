@@ -93,6 +93,7 @@
       - gem
       - man-db
       - xfce4-session
+      - dbus-x11
     state: latest
   become: true
   become_method: sudo
