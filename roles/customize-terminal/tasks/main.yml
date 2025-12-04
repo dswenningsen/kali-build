@@ -1,45 +1,35 @@
 ---
-- name: "Copy BashRC"
+- name: "Change default shell to zsh"
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+
+- name: "Copy ZshRC"
   copy:
-    src: "{{ role_path }}/files/.bashrc"
+    src: "{{ role_path }}/files/.zshrc"
     dest: "{{ ansible_env.HOME }}"
 
-- name: "Ensure .bash_profile sources .bashrc inside tmux"
+- name: "Copy Zsh aliases"
+  copy:
+    src: "{{ role_path }}/files/.zsh_aliases"
+    dest: "{{ ansible_env.HOME }}/.zsh_aliases"
+
+- name: "Ensure .zshenv loads .zshrc for interactive shells"
   lineinfile:
-    path: "{{ ansible_env.HOME }}/.bash_profile"
+    path: "{{ ansible_env.HOME }}/.zshenv"
+    line: "[[ -o interactive ]] && source ~/.zshrc"
+    insertafter: EOF
+    create: yes
+
+- name: "Ensure .zprofile sources .zshrc inside tmux"
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zprofile"
     line: |
       if [[ -n "$TMUX" ]]; then
-          source ~/.bashrc
+          source ~/.zshrc
       fi
     insertafter: EOF
     create: yes
-    
-- name: "Read current mate terminal profiles"
-  dconf:
-    key: "/org/mate/terminal/global/profile-list"
-    state: "read"
-  register: "profile_list"
-
-- name: "profile_list was not set, setting"
-  set_fact:
-    profile_list: 
-      value: '["default"]'
-  when: profile_list.value is none
-
-- name: "Adding our profile"
-  set_fact:
-    new_profile_list: "{{ profile_list.value | regex_replace(']$', \", 'video']\") }}"
-
-- name: "Writing updated profile list"
-  dconf:
-    key: "/org/mate/terminal/global/profile-list"
-    value: "{{ new_profile_list }}"
-  when: "'video' not in profile_list.value"
-  
-- name: "Restoring Video Profile from Dump"
-  shell:
-    cmd: "dconf load /org/mate/terminal/profiles/video/ < {{ role_path }}/files/dconf-dump-video"
-  when: "'video' not in profile_list.value"
 
 # Install CascadiaCode font via package manager
 - name: "Install CascadiaCode font"
@@ -60,4 +50,31 @@
     HOME: "{{ ansible_env.HOME }}"
   register: oh_my_posh_font_install
   changed_when: oh_my_posh_font_install.rc == 0
+
+# Xfce (xfce4-terminal) settings management
+- name: "Read current xfce4-terminal font"
+  community.general.xfconf:
+    channel: xfce4-terminal
+    property: /general/FontName
+    state: read
+  register: xfce_font
+
+- name: "Set xfce4-terminal base preferences (video preset)"
+  community.general.xfconf:
+    channel: xfce4-terminal
+    property: "{{ item.property }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - { property: "/general/FontName", value: "Cascadia Code 11" }
+    - { property: "/general/UseSystemFont", value: false }
+    - { property: "/general/ColorForeground", value: "#C0C0C0" }
+    - { property: "/general/ColorBackground", value: "#000000" }
+    - { property: "/general/ColorCursor", value: "#FFFFFF" }
+    - { property: "/general/ColorPalette", value: "#000000;#AA0000;#00AA00;#AA5500;#0000AA;#AA00AA;#00AAAA;#AAAAAA;#555555;#FF5555;#55FF55;#FFFF55;#5555FF;#FF55FF;#55FFFF;#FFFFFF" }
+    - { property: "/general/UseCustomColors", value: true }
+    - { property: "/general/ScrollingBar", value: "Right" }
+    - { property: "/general/AllowBoldText", value: true }
+  when: xfce_font.value != "Cascadia Code 11"
+
 
