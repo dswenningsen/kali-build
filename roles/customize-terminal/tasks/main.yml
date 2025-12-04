@@ -14,6 +14,11 @@
     src: "{{ role_path }}/files/.zsh_aliases"
     dest: "{{ ansible_env.HOME }}/.zsh_aliases"
 
+- name: "Copy oh-my-posh theme"
+  copy:
+    src: "{{ role_path }}/files/.mytheme.omp.json"
+    dest: "{{ ansible_env.HOME }}/.mytheme.omp.json"
+
 - name: "Ensure .zshenv loads .zshrc for interactive shells"
   lineinfile:
     path: "{{ ansible_env.HOME }}/.zshenv"
