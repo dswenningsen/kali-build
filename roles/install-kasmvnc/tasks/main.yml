@@ -50,11 +50,6 @@
     dest: "{{ ansible_env.HOME }}/.vnc/xstartup"
     mode: "0755"
 
-- name: Create KasmVNC user
-  ansible.builtin.command: >-
-    kasmvnc
-
-
 - name: Set KasmVNC password for user
   ansible.builtin.command: >-
     echo -e "PAtriot\nPAtriot\n" | kasmvncpasswd -u {{ ansible_user_id }} -orw
