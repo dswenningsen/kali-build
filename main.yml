@@ -17,8 +17,8 @@
       tags: [kasmvnc]
     - role: "roles/configure-msfconsole"
       tags: [msf]
-    # - role: "roles/configure-logging"
-    #   tags: [logging]
+    - role: "roles/configure-logging"
+      tags: [logging]
     # - role: "roles/configure-system"
     #   tags: [system]
     # - role: gantsign.visual-studio-code
