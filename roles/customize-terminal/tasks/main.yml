@@ -58,11 +58,10 @@
 
 # Xfce (xfce4-terminal) settings management
 - name: "Read current xfce4-terminal font"
-  community.general.xfconf:
-    channel: xfce4-terminal
-    property: /general/FontName
-    state: read
+  ansible.builtin.command:
+    cmd: xfconf-query -c xfce4-terminal -p /general/FontName
   register: xfce_font
+  changed_when: false
 
 - name: "Set xfce4-terminal base preferences (video preset)"
   community.general.xfconf:
@@ -80,6 +79,6 @@
     - { property: "/general/UseCustomColors", value: true }
     - { property: "/general/ScrollingBar", value: "Right" }
     - { property: "/general/AllowBoldText", value: true }
-  when: xfce_font.value != "Cascadia Code 11"
+  when: xfce_font.stdout != "Cascadia Code 11"
 
 
