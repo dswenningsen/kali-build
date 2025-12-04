@@ -8,7 +8,8 @@
       register: msf_db_config
 
     - name: Initialize Metasploit database
-      ansible.builtin.command: msfdb init
+      ansible.builtin.command:
+        cmd: /usr/bin/msfdb init
       when: not msf_db_config.stat.exists
       changed_when: true
       args:
