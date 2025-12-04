@@ -58,6 +58,7 @@
 - name: "Installing Packages"
   package:
     name:
+      - kali-linux-default
       - jq
       - pipx
       - ntpsec-ntpdate
