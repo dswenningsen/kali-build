@@ -44,21 +44,15 @@
     dest: "{{ ansible_env.HOME }}/kasm.sh"
     mode: "0755"
 
-- name: Copy xstartup.sh to ~/.vnc
+- name: Copy xstartup to ~/.vnc
   ansible.builtin.copy:
     src: xstartup
     dest: "{{ ansible_env.HOME }}/.vnc/xstartup"
     mode: "0755"
 
-- name: Create tmp file with temp Password
-  ansible.builtin.copy:
-    content: "PAtriot\n"
-    dest: "/tmp/KasmPass.txt"
-    mode: "0644"
-
 - name: Set KasmVNC password for user
   ansible.builtin.command: >-
-    kasmvncpasswd -u {{ kasmvnc_user | default(ansible_user_id) }} /tmp/KasmPass.txt
+    echo "PAtriot\nPAtriot\n" | kasmvncpasswd -u {{ kasmvnc_user | default(ansible_user_id) }}
   become: true
   become_user: "{{ kasmvnc_user | default(ansible_user_id) }}"
   register: kasmvncpasswd_result
