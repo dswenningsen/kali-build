@@ -45,16 +45,16 @@
     update_cache: yes
 
 # Install oh-my-posh fonts
-- name: "Install oh-my-posh recommended fonts"
-  become: yes
-  shell:
-    cmd: "oh-my-posh font install CascadiaCode"
-  args:
-    creates: "{{ ansible_env.HOME }}/.local/share/fonts"
-  environment:
-    HOME: "{{ ansible_env.HOME }}"
-  register: oh_my_posh_font_install
-  changed_when: oh_my_posh_font_install.rc == 0
+# - name: "Install oh-my-posh recommended fonts"
+#   become: yes
+#   shell:
+#     cmd: "oh-my-posh font install CascadiaCode"
+#   args:
+#     creates: "{{ ansible_env.HOME }}/.local/share/fonts"
+#   environment:
+#     HOME: "{{ ansible_env.HOME }}"
+#   register: oh_my_posh_font_install
+#   changed_when: oh_my_posh_font_install.rc == 0
 
 # Xfce (xfce4-terminal) settings management
 - name: "Read current xfce4-terminal font"
