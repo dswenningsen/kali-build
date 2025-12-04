@@ -32,3 +32,21 @@
     state: present
   when: kasmvnc_deb_url.stdout | length > 0
 
+- name: Ensure ~/.vnc directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.vnc"
+    state: directory
+    mode: "0755"
+
+- name: Copy kasm.sh to home directory
+  ansible.builtin.copy:
+    src: kasm.sh
+    dest: "{{ ansible_env.HOME }}/kasm.sh"
+    mode: "0755"
+
+- name: Copy xstartup.sh to ~/.vnc
+  ansible.builtin.copy:
+    src: xstartup
+    dest: "{{ ansible_env.HOME }}/.vnc/xstartup"
+    mode: "0755"
+
