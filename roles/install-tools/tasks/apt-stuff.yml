@@ -64,6 +64,7 @@
       - libssl-dev
       - pkg-config
       - ruby-rubygems
+      - ruby-dev
       - gem
     state: latest
   become: true
