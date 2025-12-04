@@ -13,6 +13,8 @@
       tags: [vim]
     - role: "roles/customize-browser"
       tags: [browser]
+    - role: "roles/install-kasmvnc"
+      tags: [kasmvnc]
     # - role: "roles/configure-logging"
     #   tags: [logging]
     # - role: "roles/configure-system"

@@ -1,0 +1,34 @@
+---
+- name: Ensure download directory exists
+  ansible.builtin.file:
+    path: "{{ kasmvnc_download_dir | default('/tmp') }}"
+    state: directory
+    mode: "0755"
+
+- name: Fetch latest KasmVNC deb URL for bookworm amd64
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl -s https://api.github.com/repos/kasmtech/KasmVNC/releases/latest \
+      | grep "browser_download_url.*deb" \
+      | grep bookworm \
+      | grep amd \
+      | cut -d : -f 2,3 \
+      | tr -d '"'
+  args:
+    executable: /bin/bash
+  register: kasmvnc_deb_url
+  changed_when: false
+
+- name: Download KasmVNC deb
+  ansible.builtin.get_url:
+    url: "{{ kasmvnc_deb_url.stdout | trim }}"
+    dest: "{{ kasmvnc_download_dir | default('/tmp') }}/kasmvnc.deb"
+    mode: "0644"
+  when: kasmvnc_deb_url.stdout | length > 0
+
+- name: Install KasmVNC deb
+  ansible.builtin.apt:
+    deb: "{{ kasmvnc_download_dir | default('/tmp') }}/kasmvnc.deb"
+    state: present
+  when: kasmvnc_deb_url.stdout | length > 0
+
