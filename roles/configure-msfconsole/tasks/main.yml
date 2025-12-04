@@ -1,0 +1,15 @@
+---
+- name: Ensure Metasploit database is initialized
+  become: true
+  block:
+    - name: Check if Metasploit DB config exists
+      ansible.builtin.stat:
+        path: "{{ ansible_env.HOME }}/.msf4/database.yml"
+      register: msf_db_config
+
+    - name: Initialize Metasploit database
+      ansible.builtin.command: msfdb init
+      when: not msf_db_config.stat.exists
+      changed_when: true
+      args:
+        warn: false
