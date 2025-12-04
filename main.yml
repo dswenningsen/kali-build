@@ -19,10 +19,10 @@
       tags: [msf]
     - role: "roles/configure-logging"
       tags: [logging]
-    # - role: "roles/configure-system"
-    #   tags: [system]
-    # - role: gantsign.visual-studio-code
-    #   tags: [vscode]
+    - role: "roles/configure-system"
+      tags: [system]
+    - role: gantsign.visual-studio-code
+      tags: [vscode]
       users:
         - username: "{{ ansible_user_id }}" 
           visual_studio_code_extensions:
