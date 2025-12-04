@@ -57,8 +57,6 @@
       - docker-doc
       - docker-clean
       - containerd
-      - docker-buildx-plugin
-      - docker-compose-plugin
     state: latest
   become: true
   become_method: sudo
