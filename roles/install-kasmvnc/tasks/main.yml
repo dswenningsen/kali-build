@@ -52,9 +52,15 @@
 
 - name: Set KasmVNC password for user
   ansible.builtin.command: >-
-    echo -e "PAtriot\nPAtriot\n" | kasmvncpasswd -u {{ ansible_user_id }} -orw
+    echo -e "PAtriot\nPAtriot\n" | kasmvncpasswd -u {{ ansible_user_id }}
   become: true
   become_user: "{{ ansible_user_id }}"
   register: kasmvncpasswd_result
   changed_when: kasmvncpasswd_result.rc == 0
 
+- name: Set Kasm User permissions
+  ansible.builtin.command: >-
+    kasmvncpasswd -u {{ ansible_user_id }} -ownr
+  become: true
+  become_user: "{{ ansible_user_id }}"
+  
