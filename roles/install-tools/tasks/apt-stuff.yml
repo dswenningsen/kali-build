@@ -63,6 +63,7 @@
       - libffi-dev
       - libssl-dev
       - pkg-config
+      - gem
     state: latest
   become: true
   become_method: sudo
