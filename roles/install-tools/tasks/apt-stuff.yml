@@ -9,6 +9,22 @@
   become: true
   become_method: sudo
 
+- name: "Download oh-my-posh install script"
+  ansible.builtin.get_url:
+    url: https://ohmyposh.dev/install.sh
+    dest: /usr/local/src/ohmyposh-install.sh
+    mode: '0755'
+  register: ohmyposh_fetch
+  become: true
+  become_method: sudo
+
+- name: "Run oh-my-posh install script if updated"
+  ansible.builtin.command:
+    cmd: /bin/bash /usr/local/src/ohmyposh-install.sh
+  when: ohmyposh_fetch.changed
+  become: true
+  become_method: sudo
+
 - name: "Remove unofficial docker images"
   package:
     name: 

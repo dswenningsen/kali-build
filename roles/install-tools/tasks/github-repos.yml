@@ -6,6 +6,7 @@
   loop:
     - { repo: "https://github.com/Flangvik/SharpCollection", location: "/opt/SharpCollection" }
     - { repo: "https://github.com/danielmiessler/SecLists", location: "/opt/SecLists" }
+    - { repo: "https://github.com/tmux-plugins/tpm", location: "~/.tmux/plugins/tpm" }
   become: true
   become_method: sudo
 
