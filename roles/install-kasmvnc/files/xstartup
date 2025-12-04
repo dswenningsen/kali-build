@@ -1,3 +1,17 @@
 #!/bin/sh
-xrdb $HOME/.Xresources
-startxfce4 &
+set -x
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+# Hint desktop type for apps
+export XDG_CURRENT_DESKTOP=XFCE
+export DESKTOP_SESSION=xfce
+
+# Load X resources if present (optional but harmless)
+if [ -r "$HOME/.Xresources" ]; then
+	xrdb "$HOME/.Xresources"
+fi
+
+# Start Xfce; using startxfce4 is the common choice for VNC
+# Note: do NOT wrap with dbus-launch here; it often causes a blank screen under kasmvnc
+startxfce4 >/tmp/startxfce4.log 2>&1 &
