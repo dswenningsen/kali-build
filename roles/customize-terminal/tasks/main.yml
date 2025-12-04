@@ -44,29 +44,5 @@
     state: present
     update_cache: yes
 
-# Xfce (xfce4-terminal) settings management
-- name: "Read current xfce4-terminal font"
-  ansible.builtin.command:
-    cmd: xfconf-query -c xfce4-terminal -p /general/FontName
-  register: xfce_font
-  changed_when: false
-
-- name: "Set xfce4-terminal base preferences (video preset)"
-  community.general.xfconf:
-    channel: xfce4-terminal
-    property: "{{ item.property }}"
-    value: "{{ item.value }}"
-    state: present
-  loop:
-    - { property: "/general/FontName", value: "Cascadia Code 11" }
-    - { property: "/general/UseSystemFont", value: false }
-    - { property: "/general/ColorForeground", value: "#C0C0C0" }
-    - { property: "/general/ColorBackground", value: "#000000" }
-    - { property: "/general/ColorCursor", value: "#FFFFFF" }
-    - { property: "/general/ColorPalette", value: "#000000;#AA0000;#00AA00;#AA5500;#0000AA;#AA00AA;#00AAAA;#AAAAAA;#555555;#FF5555;#55FF55;#FFFF55;#5555FF;#FF55FF;#55FFFF;#FFFFFF" }
-    - { property: "/general/UseCustomColors", value: true }
-    - { property: "/general/ScrollingBar", value: "Right" }
-    - { property: "/general/AllowBoldText", value: true }
-  when: xfce_font.stdout != "Cascadia Code 11"
-
-
+- name: "Hush login message"
+  shell: "touch {{ ansible_env.HOME }}/.hushlogin"

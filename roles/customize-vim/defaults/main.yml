@@ -1,0 +1,29 @@
+---
+vim_package_name: vim
+vimrc_path: "{{ ansible_env.HOME }}/.vimrc"
+
+# Basic UI
+vim_number: true
+vim_relativenumber: true
+vim_cursorline: true
+vim_showcmd: true
+vim_showmode: false
+
+# Indentation
+vim_tabstop: 4
+vim_shiftwidth: 4
+vim_expandtab: true
+
+# Search
+vim_ignorecase: true
+vim_smartcase: true
+vim_incsearch: true
+
+# Files
+vim_backup: false
+vim_swapfile: false
+vim_undofile: true
+
+# Colors
+vim_termguicolors: true
+vim_background: "dark"

@@ -1,0 +1,6 @@
+---
+- name: "Copy provided .vimrc into user's home"
+  copy:
+    src: "{{ role_path }}/files/.vimrc"
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+    mode: "0644"

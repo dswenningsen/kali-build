@@ -9,6 +9,8 @@
       tags: [tmux]
     - role: "roles/customize-terminal"
       tags: [terminal]
+    - role: "roles/customize-vim"
+      tags: [vim]
     # - role: "roles/customize-browser"
     #   tags: [browser]
     # - role: "roles/configure-logging"
