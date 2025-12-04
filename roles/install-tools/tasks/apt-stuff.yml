@@ -51,6 +51,7 @@
       - ca-certificates
       - curl
       - gh
+      - docker.io
     state: latest
   become: true
   become_method: sudo
