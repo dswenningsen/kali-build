@@ -67,6 +67,7 @@
   package:
     name:
       - kali-linux-default
+      - kali-desktop-xfce
       - jq
       - pipx
       - ntpsec-ntpdate
