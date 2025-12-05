@@ -1,10 +1,6 @@
 ---
 # Ansible Galaxy requirements for this project
 
-# Roles
-roles:
-- src: gantsign.visual-studio-code
-
 # Collections
 collections:
 - name: community.general
