@@ -36,5 +36,11 @@ Follow this order exactly in a fresh terminal:
 	- `ansible-playbook main.yml`
 
 🗒️Notes:
-- `-K` asks for your sudo password to escalate tasks that use `become: true`.
+- To start `kasmvncserver` from the user's home directory, run the following:
+	- `./kasm.sh`
+	- When asked about desktop environment select `Manually edit xstartup`. No editing will be needed.
+	- Navigate to https://<kali ip>:8443
+	- Ignore certificate errors if needed
+	- Log in with username and the password of `password`
+		- This can be changed with `kasmpasswd` command
 - If running locally without SSH, no inventory file is required; the playbook defaults to localhost.
