@@ -34,7 +34,7 @@
 
 - name: "Run oh-my-posh install script if updated"
   ansible.builtin.command:
-    cmd: /bin/bash /usr/local/src/ohmyposh-install.sh
+    cmd: /bin/bash /usr/local/src/ohmyposh-install.sh -d {{ ansible_facts['user_dir'] }}/.local/bin
   when: ohmyposh_fetch.changed
   become: true
   become_method: sudo
