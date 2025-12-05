@@ -1,5 +1,7 @@
 ---
 - name: "Install pipx tools"
+  become: true
+  become_user: root
   community.general.pipx:
     name: "{{ item.name }}"
     source: "{{ item.url }}"
