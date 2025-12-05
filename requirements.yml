@@ -3,9 +3,9 @@
 
 # Roles
 roles:
-	- src: gantsign.visual-studio-code
+- src: gantsign.visual-studio-code
 
 # Collections
 collections:
-	- name: community.general
-		version: ">=9.0.0"
+- name: community.general
+  version: ">=9.0.0"
