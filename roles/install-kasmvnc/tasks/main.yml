@@ -31,6 +31,7 @@
     deb: "{{ kasmvnc_download_dir | default('/tmp') }}/kasmvnc.deb"
     state: present
   when: kasmvnc_deb_url.stdout | length > 0
+  become: true
 
 - name: Ensure ~/.vnc directory exists
   ansible.builtin.file:

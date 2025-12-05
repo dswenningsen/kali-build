@@ -16,6 +16,13 @@
   become: true
   become_method: sudo
 
+- name: "Install curl"
+  ansible.builtin.package:
+    name: curl
+    state: present
+  become: true
+  become_method: sudo
+
 - name: "Download oh-my-posh install script"
   ansible.builtin.get_url:
     url: https://ohmyposh.dev/install.sh

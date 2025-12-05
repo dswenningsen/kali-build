@@ -1,14 +1,39 @@
 ** Make sure to pip install ansible, apt has an older copy **
 
-# Instructions
-* Start with Parrot HTB Edition
+# 🚣‍♀️Flow
+* Start with Kali image in Azure
 * Install Ansible (python3 -m pip install ansible)
 * Clone and enter the repo (git clone)
 * ansible-galaxy install -r requirements.yml
 * Make sure we have a sudo token (sudo whoami)
 * ansible-playbook main.yml
 
-# Off-Video Changes
-* Mate-Terminal Colors, I show how to configure it here (https://www.youtube.com/watch?v=2y68gluYTcc). I just did the steps in that video on my old VM to backup the color scheme, then copied it to this repo.
-* Evil-Winrm/Certipy/SharpCollection/CME/Impacket, will make a video for these soon
-* Updated BurpSuite Activation. Later versions of ansible would hang if a shell script started a process that didn't die. Put a timeout on the java process
+## 👟Quick Start (Non-root with sudo)
+
+Follow this order exactly in a fresh terminal:
+
+1. Update and upgrade APT
+	- `sudo apt update`
+	- `sudo apt -y upgrade`
+2. Install `pipx`
+	- `sudo apt -y install pipx`
+3. Install Ansible via `pipx`
+	- `python3 -m pipx install ansible`
+4. Ensure `pipx` path is set
+	- `pipx ensurepath`
+    - `sudo pipx ensurepath`
+5. Restart the terminal (close and reopen)
+6. Install `ansible-core` with `pipx`
+	- `pipx install ansible-core`
+    - `sudo pipx install ansible-core`
+7. Clone this repository
+	- `git clone https://github.com/dswenningsen/kali-build.git`
+	- `cd kali-build`
+8. Install role dependencies
+	- `ansible-galaxy install -r requirements.yml`
+9. Run the playbook (prompts for sudo password)
+	- `ansible-playbook -K main.yml`
+
+🗒️Notes:
+- `-K` asks for your sudo password to escalate tasks that use `become: true`.
+- If running locally without SSH, no inventory file is required; the playbook defaults to localhost.
