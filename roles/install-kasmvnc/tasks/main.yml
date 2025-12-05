@@ -1,7 +1,7 @@
 ---
 - name: Ensure download directory exists
   ansible.builtin.file:
-    path: "{{ kasmvnc_download_dir | default(ansible_env.HOME + '/.cache/kasmvnc') }}"
+    path: "{{ kasmvnc_download_dir | default(ansible_facts['env']['HOME'] ~ '/.cache/kasmvnc') }}"
     state: directory
     mode: "0755"
 
@@ -22,13 +22,13 @@
 - name: Download KasmVNC deb
   ansible.builtin.get_url:
     url: "{{ kasmvnc_deb_url.stdout | trim }}"
-    dest: "{{ kasmvnc_download_dir | default(ansible_env.HOME + '/.cache/kasmvnc') }}/kasmvnc.deb"
+    dest: "{{ kasmvnc_download_dir | default(ansible_facts['env']['HOME'] ~ '/.cache/kasmvnc') }}/kasmvnc.deb"
     mode: "0644"
   when: kasmvnc_deb_url.stdout | length > 0
 
 - name: Install KasmVNC deb
   ansible.builtin.apt:
-    deb: "{{ kasmvnc_download_dir | default(ansible_env.HOME + '/.cache/kasmvnc') }}/kasmvnc.deb"
+    deb: "{{ kasmvnc_download_dir | default(ansible_facts['env']['HOME'] ~ '/.cache/kasmvnc') }}/kasmvnc.deb"
     state: present
   when: kasmvnc_deb_url.stdout | length > 0
   become: true
