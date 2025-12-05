@@ -125,9 +125,9 @@
 
 - name: "Install Microsoft keyring (dearmor)"
   ansible.builtin.command:
-    cmd: gpg --dearmor -o /usr/share/keyrings/microsoft.gpg /usr/local/src/microsoft.asc
+    cmd: gpg --dearmor -o /etc/apt/keyrings/microsoft.gpg /usr/local/src/microsoft.asc
   args:
-    creates: /usr/share/keyrings/microsoft.gpg
+    creates: /etc/apt/keyrings/microsoft.gpg
   become: true
   become_method: sudo
 
@@ -141,7 +141,7 @@
 
 - name: "Add VS Code apt repository (signed-by)"
   ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/microsoft.asc] https://packages.microsoft.com/repos/code stable main"
+    repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
     state: present
     filename: "vscode"
   become: true
