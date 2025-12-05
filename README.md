@@ -39,7 +39,7 @@ Follow this order exactly in a fresh terminal:
 - To start `kasmvncserver` from the user's home directory, run the following:
 	- `./kasm.sh`
 	- When asked about desktop environment select `Manually edit xstartup`. No editing will be needed.
-	- Navigate to https://<kali ip>:8443
+	- Navigate to https://-your kali ip-:8443
 	- Ignore certificate errors if needed
 	- Log in with username and the password of `password`
 		- This can be changed with `kasmpasswd` command
