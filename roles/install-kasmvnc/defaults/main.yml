@@ -1,2 +1,2 @@
 ---
-kasmvnc_download_dir: /tmp
+kasmvnc_download_dir: "{{ ansible_facts['env']['HOME'] }}/.cache/kasmvnc"
