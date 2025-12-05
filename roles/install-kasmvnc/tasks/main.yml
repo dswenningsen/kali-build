@@ -53,14 +53,14 @@
 
 - name: Set KasmVNC password for user
   shell:
-    echo "password\npassword\n" | kasmvncpasswd -u {{ ansible_user_id }} -owr
+    echo "password\npassword\n" | kasmvncpasswd -u {{ ansible_facts['user_id'] }} -owr
   become: true
-  become_user: "{{ ansible_user_id }}"
+  become_user: "{{ ansible_facts['user_id'] }}"
   register: kasmvncpasswd_result
   changed_when: kasmvncpasswd_result.rc == 0
 
 - name: Set Kasm User permissions
   shell:
-    kasmvncpasswd -u {{ ansible_user_id }} -ownr
+    kasmvncpasswd -u {{ ansible_facts['user_id'] }} -ownr
   become: true
-  become_user: "{{ ansible_user_id }}"
+  become_user: "{{ ansible_facts['user_id'] }}"

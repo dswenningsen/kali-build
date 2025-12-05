@@ -1,6 +1,6 @@
 - name: Check if Metasploit DB config exists
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.msf4/database.yml"
+    path: "{{ ansible_facts['env']['HOME'] }}/.msf4/database.yml"
   register: msf_db_config
 
 - name: Initialize Metasploit database
@@ -12,12 +12,12 @@
 
 - name: Ensure ~/.msf4 directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.msf4"
+    path: "{{ ansible_facts['env']['HOME'] }}/.msf4"
     state: directory
     mode: "0755"
 
 - name: Copy msfconsole.rc to ~/.msf4
   ansible.builtin.copy:
     src: msfconsole.rc
-    dest: "{{ ansible_env.HOME }}/.msf4/msfconsole.rc"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.msf4/msfconsole.rc"
     mode: "0644"
