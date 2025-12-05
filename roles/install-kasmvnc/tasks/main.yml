@@ -33,6 +33,13 @@
   when: kasmvnc_deb_url.stdout | length > 0
   become: true
 
+- name: Ensure ansible user is in ssl-cert group
+  ansible.builtin.user:
+    name: "{{ ansible_facts['user_id'] }}"
+    groups: ssl-cert
+    append: true
+  become: true
+
 - name: Ensure ~/.vnc directory exists
   ansible.builtin.file:
     path: "{{ ansible_facts['env']['HOME'] }}/.vnc"
