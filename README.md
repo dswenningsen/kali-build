@@ -8,7 +8,7 @@
 * Make sure we have a sudo token (sudo whoami)
 * ansible-playbook main.yml
 
-## 👟Quick Start (Non-root with sudo)
+## 👟Quick Start (Non-root with sudo no password needed)
 
 Follow this order exactly in a fresh terminal:
 
@@ -19,6 +19,7 @@ Follow this order exactly in a fresh terminal:
 	- `sudo apt -y install pipx`
 3. Install Ansible via `pipx`
 	- `python3 -m pipx install ansible`
+	- `sudo python3 -m pipx install ansible`
 4. Ensure `pipx` path is set
 	- `pipx ensurepath`
     - `sudo pipx ensurepath`
@@ -32,7 +33,7 @@ Follow this order exactly in a fresh terminal:
 8. Install role dependencies
 	- `ansible-galaxy install -r requirements.yml`
 9. Run the playbook (prompts for sudo password)
-	- `ansible-playbook -K main.yml`
+	- `ansible-playbook main.yml`
 
 🗒️Notes:
 - `-K` asks for your sudo password to escalate tasks that use `become: true`.

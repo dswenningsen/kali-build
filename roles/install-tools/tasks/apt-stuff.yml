@@ -23,6 +23,13 @@
   become: true
   become_method: sudo
 
+- name: "Install unzip"
+  ansible.builtin.package:
+    name: unzip
+    state: present
+  become: true
+  become_method: sudo
+
 - name: "Download oh-my-posh install script"
   ansible.builtin.get_url:
     url: https://ohmyposh.dev/install.sh
@@ -32,10 +39,15 @@
   become: true
   become_method: sudo
 
+- name: "Check if oh-my-posh binary exists"
+  ansible.builtin.stat:
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin/oh-my-posh"
+  register: ohmyposh_bin
+
 - name: "Run oh-my-posh install script if updated"
   ansible.builtin.command:
     cmd: /bin/bash /usr/local/src/ohmyposh-install.sh -d {{ ansible_facts['user_dir'] }}/.local/bin
-  when: ohmyposh_fetch.changed
+  when: ohmyposh_fetch.changed or (not ohmyposh_bin.stat.exists)
   become: true
   become_method: sudo
 
