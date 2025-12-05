@@ -13,9 +13,12 @@
     dest: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
 
 - name: "Copy z.sh"
+  become: true
+  become_method: sudo
   copy:
     src: "{{ role_path }}/files/z.sh"
     dest: "/usr/bin/z.sh"
+    mode: "0755"
 
 - name: "Copy Zsh aliases"
   copy:
